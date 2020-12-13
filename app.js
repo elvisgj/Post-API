@@ -1,17 +1,19 @@
 const express = require("express");
 const connectDB = require("./DB/Connection");
+const morgan = require("morgan");
 
 require("dotenv").config();
 
 connectDB();
 const app = express();
 
+app.use(morgan("combined"));
+
 // Using body parser middleware of express.js
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/posts", require("./api_db/posts"));
-app.use("/api/members", require("./routes/api/members"));
 
 const PORT = process.env.PORT || 6000;
 
