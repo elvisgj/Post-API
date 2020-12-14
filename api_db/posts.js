@@ -29,4 +29,21 @@ router.post(
   })
 );
 
+//Get all the posts
+router.get(
+  "/",
+  errorWrapper(async (req, res) => {
+    const filter = {};
+    if (req.query.name) {
+      filter.name = { $regex: new RegExp(req.query.name), $options: "i" };
+    }
+    if (req.query.surname) {
+      filter.surname = { $regex: new RegExp(req.query.surname), $options: "i" };
+    }
+
+    const posts = await Post.find(filter);
+    res.json(posts);
+  })
+);
+
 module.exports = router;
