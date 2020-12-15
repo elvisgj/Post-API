@@ -46,7 +46,7 @@ router.get(
   })
 );
 
-//Get post by id
+//Get a single post by id
 router.get(
   "/:postId",
   errorWrapper(async (req, res) => {
