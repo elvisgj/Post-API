@@ -46,4 +46,19 @@ router.get(
   })
 );
 
+//Get post by id
+router.get(
+  "/:postId",
+  errorWrapper(async (req, res) => {
+    const posts = await Post.findById(req.params.postId);
+    if (!posts) {
+      res
+        .status(404)
+        .json({ msg: `Post with id: ${req.params.postId} it is not found` });
+      return;
+    }
+    res.json(posts);
+  })
+);
+
 module.exports = router;
